@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var num = 3;
+        var obj = {
+            num: 2,
+            fn: (function () {
+                this.num *= 2;
+                num += 3;
+                var num = 1;
+                return function () {
+                    num += 3;
+                    this.num += 2;
+                    console.log(++num);
+                }
+            })()
+        }
+        var f = obj.fn;
+        f();
+        obj.fn();
+        console.log(window.num, obj.num);
+    </script>
+</body>
+
+</html>

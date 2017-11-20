@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        Number.prototype.plus = function plus(a) {
+            if (arguments.length != 1) {
+                return this;
+            } else {
+                if (typeof arguments[0] != "number") {
+                    return this;
+                } else {
+                    return this + a;
+                }
+            }
+        }
+        Number.prototype.minus = function minus(b) {
+            return this - b;
+        }
+        var x =10;
+       console.log((x).plus(10).minus(2));
+    </script>
+</body>
+
+</html>

@@ -10,26 +10,27 @@
 
 <body>
     <script>
-        var arr = [1, 54, 1, 31, 46, 848, 21, 2, 54];
+        var obj = [12, 22, 8, 7, 6, 88, 22];
 
-        function change(arr) {
-            for (var i = 0; i < arr.length - 1; i++) {
-                var flag = true;
-                for (var j = 0; j < arr.length - 1 - i; j++) {
-                    if (arr[j] > arr[j + 1]) {
-                        var temp = arr[j + 1];
-                        arr[j + 1] = arr[j];
-                        arr[j] = temp;
-                        flag = false;
+        function change(obj) {
+            for (var j = 0; j < obj.length; j++) {
+                console.obj;
+                var a = false;
+                for (var i = 0; i < obj.length - 1 - j; i++) {
+                    if (obj[i] > obj[i + 1]) {
+                        var cur = obj[i + 1];
+                        obj[i + 1] = obj[i];
+                        obj[i] = cur;
+                        a = true;
                     }
                 }
-                if (flag) {
+                if (!a) {
                     break;
                 }
             }
-            return arr;
+            return obj;
         }
-        console.log(change(arr));
+        change(obj);
     </script>
 </body>
 
