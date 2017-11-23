@@ -33,6 +33,7 @@ var utils = (function () {
                 ary[ary.length] = obj[i];
             }
         }
+        return ary;
     }
 
     return {
