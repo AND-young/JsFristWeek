@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // var f = Array.prototype.sort;
+        // Object.prototype.sort = f;
+
+        // function ss() {
+        //     var a = arguments.sort(function (a, b) {
+        //         return a - b;
+        //     });
+        //     return a;
+        // }
+        // console.log(ss(3, 2, 5, 6));
+
+        // function sss() {
+        //     var arr = [];
+        //     for (var i = 0; i < arguments.length; i++) {
+        //         arr.push(arguments[i]);
+        //     }
+        //     arr.sort(function (a, b) {
+        //         return a - b;
+        //     });
+        //     var min = arr[0],
+        //         max = arr[arr.length - 1];
+        //     var sum = function () {
+        //         var total = 0;
+        //         for (var i = 0; i < arguments.length; i++) {
+        //             total += arguments[i];
+        //         }
+        //         return total / arguments.length;
+        //     }
+        //     sum.apply(null,arr);
+        // }
+        function Avg() {
+            var arr = [];
+            for (var i = 0; i < arguments.length; i++) {
+                arr.push(arguments[i]);
+            }
+            arr.sort(function (a, b) {
+                return a - b;
+            });
+            arr.pop();
+            arr.shift();
+            var total = eval(arr.join("+"));
+
+            // for (var i = 0; i < arr.length; i++) {
+            //     total += arr[i];
+            // }
+            return total / arr.length;
+        }
+        console.log(Avg(3, 4, 5, 6, 7));
+
+
+        // Array.prototype.Avg = function Avg() {
+        //     this.sort(function (a, b) {
+        //         return a - b;
+        //     });
+        //     this.pop();
+        //     this.shift();
+        //     var total = 0;
+        //     for (var i = 0; i < this.length; i++) {
+        //         total += this[i];
+        //     }
+        //     return total / this.length;
+        // }
+        // var arr = [3, 4, 5, 6, 7];
+        // console.log(arr.Avg());
+    </script>
+</body>
+
+</html>
