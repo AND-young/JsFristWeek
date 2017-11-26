@@ -9,18 +9,29 @@
 </head>
 
 <body>
-    <script>
-        function sum() {
-            var total = 0;
-            for (var i = 0; i < arguments.length; i++) {
-                var cur = Number(arguments[i]);
-                if (!isNaN(cur)) {
-                    total += cur;
-                }
-            }
-            return total;
-        }
-    </script>
+<script>
+    //        function sum() {
+    //            var total = 0;
+    //            for (var i = 0; i < arguments.length; i++) {
+    //                var cur = Number(arguments[i]);
+    //                if (!isNaN(cur)) {
+    //                    total += cur;
+    //                }
+    //            }
+    //            return total;
+    //        }
+
+    function average() {
+        var arr = [].prototype.slice.call(arguments);
+        arr.sort(function (a, b) {
+            return a - b;
+        });
+        arr.pop();
+        arr.shift();
+        var avg = eval('(' + arr.join('+') + ')') / arr.length;
+        return avg;
+    }
+</script>
 </body>
 
 </html>

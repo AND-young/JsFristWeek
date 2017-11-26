@@ -6,12 +6,16 @@
  */
 
 function preSibling(obj) {
-    var preObj = obj.previousSibling;
-    while (preObj) {
-        if (preObj.nodeType === 1) {
-            return preObj;
-        } else {
-            preObj = preObj.previousSibling;
+    try{
+        return obj.previousElementSibling;
+    }catch (e){
+        var preObj = obj.previousSibling;
+        while (preObj) {
+            if (preObj.nodeType === 1) {
+                return preObj;
+            } else {
+                preObj = preObj.previousSibling;
+            }
         }
     }
 }

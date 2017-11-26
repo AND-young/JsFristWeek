@@ -19,20 +19,6 @@
 // xhr.send(null);
 
 (function () {
-    // var xhr = new XMLHttpRequest();
-    //
-    // xhr.open('get', 'json/product.json', false);
-    //
-    // xhr.onreadystatechange = function () {
-    //     if (xhr.readyState === 4 && xhr.status === 200) {
-    //         var result = xhr.responseText;
-    //         // console.log(result);
-    //         result = utils.toJson(result);
-    //         window.result = result;
-    //     }
-    // };
-    //
-    // xhr.send(null);
     var xhr = new XMLHttpRequest();
     xhr.open('get', 'json/product.json', false);
     xhr.onreadystatechange = function () {
@@ -50,12 +36,7 @@
     for (var i = 0; i < result.length; i++) {
         var item = result[i];
         item.time = item.time.replace(/-/g, '');
-        str += `<li data-price="${item.price}" data-hot = "${item.hot}" data-time = "${item.time}">
-            <a href="javascript:;">
-            <img src="${item.img}" alt="">
-            <p>${item.title}</p>
-            <span>￥${item.price}</span>
-        </a></li>`;
+        str += `<li data-price="${item.price}" data-hot = "${item.hot}" data-time = "${item.time}"><a href="javascript:;"><img src="${item.img}" alt=""><p>${item.title}</p><span>￥${item.price}</span></a></li>`;
     }
     ListBox.innerHTML = str;
 })();
@@ -65,27 +46,40 @@
     var oLis = ListBox.children;
     var header = document.getElementById('header');
     var btn = header.getElementsByTagName('a');
-    var arr = ['data-time', 'data-price', 'data-hot'];
+
+    var preflag = 0;
     for (var i = 0; i < btn.length; i++) {
-        btn[i].myMethod = -1;
+        //  通过添加自定义属性来判断点击的是哪个元素,进行不同的排序并且几率点击的次数做出不同的排序;
+        btn[i].myMethod = 1;
         btn[i].index = i;
         btn[i].onclick = function () {
-            this.myMethod*=-1;
-            changeP(arr[this.index], this.myMethod, this.index);
+            changeP(this.myMethod, this.index);
+            this.myMethod *= -1;
+            preflag = this.index;
         }
     }
 
-    function changeP(data, who, index) {
-        for (var i = 0; i < btn.length; i++) {
-            if (i != index) {
-                btn[i].myMethod = -1;
-            }
-        }
+    function changeP(flag, index) {
+        // for (var i = 0; i < btn.length; i++) {
+        //     if (i != index) {
+        //         btn[i].myMethod = 1;
+        //     }
+        // }
+        //
+        // if (preflag == index) {
+        //
+        // } else {
+        //     btn[preflag].myMethod = 1;
+        // }
+        preflag == index ? null : btn[preflag].myMethod = 1;
+        var arr = ['data-time', 'data-price', 'data-hot'];
+        //  对获取的元素集合转换为数组进行排序
         oLis = utils.toArray(oLis);
         oLis.sort(function (a, b) {
-            var hot = a.getAttribute(data) - b.getAttribute(data);
-            return hot * who;
+            var judge = a.getAttribute(arr[index]) - b.getAttribute(arr[index]);
+            return judge * flag;
         });
+        //  将排好序的li重新添加到页面中,通过 createDocumentFragment 减少页面的重绘
         var frg = document.createDocumentFragment();
         for (var i = 0; i < oLis.length; i++) {
             frg.appendChild(oLis[i]);
@@ -93,31 +87,6 @@
         ListBox.appendChild(frg);
         frg = null;
     }
-
-
-    // btn[1].myMethod = -1;
-    // btn[2].myMethod = -1;
-    // btn[1].onclick = function () {
-    //     this.myMethod*=-1;
-    //     changeP('price',this.myMethod);
-    // };
-    // btn[2].onclick = function () {
-    //     this.myMethod*=-1;
-    //     changeP('hot',this.myMethod);
-    // };
-    // btn[0].onclick = function () {
-    //     oLis.sort(function (a, b) {
-    //         // var time = new Date(b.getAttribute('data-time')) - new Date(a.getAttribute('data-time'));
-    //         var time = b.getAttribute('data-time') - a.getAttribute('data-time');
-    //         return time;
-    //     });
-    //     var frg = document.createDocumentFragment();
-    //     for (var i = 0; i < oLis.length; i++) {
-    //         frg.appendChild(oLis[i]);
-    //     }
-    //     ListBox.appendChild(frg);
-    //     frg = null;
-    // }
 }();
 
 
