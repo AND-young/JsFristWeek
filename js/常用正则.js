@@ -5,7 +5,12 @@ var str = "my name is young,i'm 20 year's old";
 str = str.replace(/\b(\w)(\w*)\b/g, function () {
     return arguments[1].toUpperCase() + arguments[2];
 });
-
+var str = "my name is young-yang i am hello world";
+var reg = /([a-zA-Z])((\w+)(-\w+)?)?/g;
+str.replace(reg,function(){
+	arguments[2] = arguments[2] || '';
+	return arguments[1].toUpperCase()+arguments[2];
+})
 //  formatTime
 var str = '2017-11-26 20:09:33';
 // 1 将字符串用split进行拆分,  空格  然后 按 - 和 : 最后字符串拼接

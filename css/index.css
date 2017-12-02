@@ -69,6 +69,7 @@ html, body {
 
 /*--LIST--*/
 .list {
+    overflow: hidden;
     width: 1205px;
     margin-top: 20px;
 }

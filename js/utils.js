@@ -68,11 +68,11 @@ var utils = (function () {
 
         while (parent.tagName !== 'body') {
             if (!/MSIE 8/i.test(navigator.useragent)) {
-                topLength += parent.clientLeft;
-                leftLength += parent.clientTop;
+                leftLength += parent.clientLeft;
+                topLength += parent.clientTop;
             }
-            topLength += parent.offsetLeft;
-            leftLength += parent.offsetTop;
+            leftLength += parent.offsetLeft;
+            topLength += parent.offsetTop;
             parent = parent.offsetParent;
         }
         return {top: topLength, left: leftLength};
@@ -88,7 +88,8 @@ var utils = (function () {
         return document.documentElement[attr] || document.body[attr];
     }
 
-    //   获取和修改css属性
+
+//   获取属性
     function getCss(curEle, attr) {
         var value = null;
         if ('getComputedStyle' in window) {
@@ -112,6 +113,57 @@ var utils = (function () {
         return value;
     }
 
+    //  设置css属性
+    function setCss(curEle, attr, value) {
+        if (attr === 'opacity') {
+            curEle.style[attr] = value;
+            curEle.style['filter'] = 'alpha(opacity=' + value * 100 + ')';
+            return;
+        }
+        var reg = /width|height|((margin|padding)?(left|top|right|bottom)?)?/;
+        if (reg.test(value)){
+            if(!isNaN(value)){
+                value += 'px';
+                curEle.style[attr] = value;
+            }
+        }
+    }
+
+    // 批量设置属性
+    function setGroupCss(curEle,options) {
+        for (var key in options) {
+            setCss(curEle, key, options[key])
+        }
+    }
+
+    function css() {
+        var leng = arguments.length;
+        var curEle = arguments[0],
+            attr = null,
+            value = null;
+        if(leng === 3){
+            attr = arguments[1];
+            value = arguments[2];
+            setCss(curEle,attr,value);
+        }
+        else if (leng === 2 && typeof arguments[1] === 'object'){
+            attr = arguments[1];
+            setGroupCss(curEle,attr);
+        }
+        else{
+            attr = arguments[1];
+            getCss(curEle,attr);
+        }
+    }
+
+    function winSet(attr, value) {
+        if (typeof value === 'undefined') {
+            return document.documentElement[attr] || document.body[attr];
+        }
+        document.documentElement[attr] = value;
+        document.body[attr] = value;
+    }
+
     return {
         average: average,
         preSibling: preSibling,
@@ -119,7 +171,10 @@ var utils = (function () {
         toJson: toJSON,
         offset: offset,
         winBox: winBox,
-        getCss: getCss
+        getCss: getCss,
+        setCss: setCss,
+        setGroupCss: setGroupCss,
+        css:css
     }
 })();
 
